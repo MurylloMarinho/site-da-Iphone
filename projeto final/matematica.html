@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> atividade de média e boas praticas na programação
+    </title>
+</head>
+
+<body>
+    <h1>Entrada do Programa</h1>
+    N1: <input type="text" id="n1"> <br />
+    N2: <input type="text" id="n2"> <br />
+    N3: <input type="text" id="n3"> <br />
+    <button onclick='executarExercicio()'>OK</button>
+    <p id="resultado"></p>
+
+    <script>
+        function obterValor(id) {
+            var valor = document.getElementById(id).value;
+            if (!valor) {
+                throw new Error("Campo vazio!");
+            }
+            return Number(valor);
+        }
+
+        function calcularMedia(n1, n2, n3) {
+            var media = (n1 + n2 + n3) / 3;
+            if (isNaN(media) || !isFinite(media)) {
+                throw new Error("Média inválida!");
+            }
+            return media;
+        }
+
+        function verificarResultado(media) {
+            if (media < 0 || media > 10) {
+                throw new Error("Média fora do intervalo permitido!");
+            }
+        }
+
+        function imprimirNaTela(mensagem) {
+            document.getElementById('resultado').innerHTML = mensagem;
+        }
+
+        function executarExercicio() {
+            try {
+                var n1 = obterValor('n1');
+                var n2 = obterValor('n2');
+                var n3 = obterValor('n3');
+                var media = calcularMedia(n1, n2, n3);
+                verificarResultado(media);
+
+                var resultado;
+                if (media >= 7) {
+                    resultado = "Aprovado com média " + media;
+                } else if (media >= 3) {
+                    resultado = "Aluno em recuperação, pois a média foi " + media;
+                } else {
+                    resultado = "Aluno reprovado, pois ficou com média " + media;
+                }
+                imprimirNaTela(resultado);
+            } catch (error) {
+                imprimirNaTela(error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
